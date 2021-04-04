@@ -1,0 +1,140 @@
+Sub The_VBA_of_Wall_Street()
+
+'Ticker
+
+    Columns("A:A").Select
+    Selection.Copy
+    Columns("I:I").Select
+    Selection.Insert Shift:=xlToRight
+    Range("I1").Select
+    Application.CutCopyMode = False
+    ActiveCell.FormulaR1C1 = "Ticker"
+    Columns("I:I").Select
+    ActiveSheet.Range("$I$1:$I$70926").RemoveDuplicates Columns:=1, Header:= _
+        xlYes
+    Range("K10").Select
+
+'Yearly Change
+
+    Range("J1").Select
+    With Selection.Interior
+        .Pattern = xlSolid
+        .PatternColorIndex = xlAutomatic
+        .ThemeColor = xlThemeColorAccent2
+        .TintAndShade = 0.599993896298105
+        .PatternTintAndShade = 0
+    End With
+    With Selection
+        .HorizontalAlignment = xlCenter
+        .VerticalAlignment = xlCenter
+        .WrapText = False
+        .Orientation = 0
+        .AddIndent = False
+        .ShrinkToFit = False
+        .ReadingOrder = xlContext
+        .MergeCells = False
+    End With
+    ActiveCell.FormulaR1C1 = "Yearly Change"
+    Range("J2").Select
+    Columns("J:J").EntireColumn.AutoFit
+    Range("J2").Select
+    ActiveCell.FormulaR1C1 = _
+        "=(INDEX(C[-4],MATCH(RC[-1],C[-9],1)))-(INDEX(C[-4],MATCH(RC[-1],C[-9],0)))"
+    Range("J2").Select
+    Selection.AutoFill Destination:=Range("J2:J290")
+    Range("J2:J290").Select
+    Range("J2").Select
+    Range(Selection, Selection.End(xlDown)).Select
+    Selection.FormatConditions.Add Type:=xlCellValue, Operator:=xlGreater, _
+        Formula1:="=0"
+    Selection.FormatConditions(Selection.FormatConditions.Count).SetFirstPriority
+    With Selection.FormatConditions(1).Interior
+        .PatternColorIndex = xlAutomatic
+        .Color = 5287936
+        .TintAndShade = 0
+    End With
+    Selection.FormatConditions(1).StopIfTrue = False
+    Selection.FormatConditions.Add Type:=xlCellValue, Operator:=xlLess, _
+        Formula1:="=0"
+    Selection.FormatConditions(Selection.FormatConditions.Count).SetFirstPriority
+    With Selection.FormatConditions(1).Interior
+        .PatternColorIndex = xlAutomatic
+        .Color = 255
+        .TintAndShade = 0
+    End With
+    Selection.FormatConditions(1).StopIfTrue = False
+    Range("J1").Select
+
+'Percentage Change
+
+    Range("K1").Select
+    With Selection.Interior
+        .Pattern = xlSolid
+        .PatternColorIndex = xlAutomatic
+        .ThemeColor = xlThemeColorAccent2
+        .TintAndShade = 0.599993896298105
+        .PatternTintAndShade = 0
+    End With
+    With Selection
+        .HorizontalAlignment = xlCenter
+        .VerticalAlignment = xlCenter
+        .WrapText = False
+        .Orientation = 0
+        .AddIndent = False
+        .ShrinkToFit = False
+        .ReadingOrder = xlContext
+        .MergeCells = False
+    End With
+    ActiveCell.FormulaR1C1 = "Percentage Change"
+    Range("L9").Select
+    Columns("K:K").ColumnWidth = 10.17
+    Columns("K:K").EntireColumn.AutoFit
+    Range("K2").Select
+    ActiveCell.FormulaR1C1 = _
+        "=((INDEX(C[-5],MATCH(RC[-2],C[-10],1)))-(INDEX(C[-5],MATCH(RC[-2],C[-10],0))))/(INDEX(C[-5],MATCH(RC[-2],C[-10],0)))"
+    Range("K2").Select
+    Selection.Style = "Percent"
+    Selection.NumberFormat = "0.0%"
+    Selection.NumberFormat = "0.00%"
+    Range("K2").Select
+    Selection.AutoFill Destination:=Range("K2:K290")
+    Range("K2:K290").Select
+    Range("K2").Select
+    Range(Selection, Selection.End(xlDown)).Select
+    Selection.FormatConditions.Add Type:=xlCellValue, Operator:=xlGreater, _
+        Formula1:="=0"
+    Selection.FormatConditions(Selection.FormatConditions.Count).SetFirstPriority
+    With Selection.FormatConditions(1).Interior
+        .PatternColorIndex = xlAutomatic
+        .Color = 5287936
+        .TintAndShade = 0
+    End With
+    Selection.FormatConditions(1).StopIfTrue = False
+    Selection.FormatConditions.Add Type:=xlCellValue, Operator:=xlLess, _
+        Formula1:="=0"
+    Selection.FormatConditions(Selection.FormatConditions.Count).SetFirstPriority
+    With Selection.FormatConditions(1).Interior
+        .PatternColorIndex = xlAutomatic
+        .Color = 255
+        .TintAndShade = 0
+    End With
+    Selection.FormatConditions(1).StopIfTrue = False
+    Range("K281").Select
+
+'Total Stock Volume
+
+    Range("L1").Select
+    ActiveCell.FormulaR1C1 = "Total Stock Volume"
+    Range("L4").Select
+    Columns("L:L").EntireColumn.AutoFit
+    Range("L1").Select
+    Selection.Font.Bold = True
+    Range("L2").Select
+    ActiveCell.FormulaR1C1 = "=SUMIF(C[-11],RC[-3],C[-5])"
+    Range("L2").Select
+    Selection.AutoFill Destination:=Range("L2:L290")
+    Range("L2:L290").Select
+    Range("L1").Select
+End Sub
+
+
